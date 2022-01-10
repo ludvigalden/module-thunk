@@ -39,7 +39,7 @@ export function resolveModuleValue<T>(
                 return moduleValue as T;
             } else {
                 if (isPromise(moduleValue)) {
-                    return moduleValue.then((v: Module<T>) => resolveModuleValue<T>(v as ModuleValue<T>, options));
+                    return (moduleValue as Promise<ModuleValue<T>>).then((v) => resolveModuleValue<T>(v, options));
                 } else if (options.isTargetValue) {
                     if (options.isTargetValue(moduleValue)) {
                         return moduleValue;
@@ -47,7 +47,9 @@ export function resolveModuleValue<T>(
                         if (isDefaultExportModule(moduleValue)) {
                             return moduleValue["default"];
                         } else {
-                            const foundTargetExportKey = Object.keys(moduleValue).find((key) => (options as any).isTargetValue(moduleValue[key]));
+                            const foundTargetExportKey = Object.keys(moduleValue).find((key) =>
+                                (options as any).isTargetValue(moduleValue[key]),
+                            );
                             if (foundTargetExportKey) {
                                 return moduleValue[foundTargetExportKey];
                             }
@@ -93,7 +95,7 @@ export function isDefaultExportModule<T>(v: object): v is DefaultExportModule<T>
     return Boolean((v as any)["default"]);
 }
 
-export function isPromise(v: any): v is Promise<any> {
+export function isPromise<T>(v: any): v is Promise<T> {
     return Boolean(v && typeof v["then"] === "function");
 }
 
