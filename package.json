@@ -1,7 +1,7 @@
 {
 	"name": "module-thunk",
 	"description": "Utility for accepting properties, arguments, or options that can be resolved dynamically or asynchronously.",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"license": "MIT",
 	"author": "Ludvig Aldén <ludvig@tifum.com>",
 	"repository": "ludvigalden/module-thunk",
