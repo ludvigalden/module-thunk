@@ -4,15 +4,11 @@ module.exports = {
         "plugin:prettier/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "prettier/babel",
         "prettier",
         "plugin:@typescript-eslint/recommended",
         "plugin:import/typescript",
-        "prettier/@typescript-eslint",
-        "plugin:react/recommended",
-        "prettier/react",
     ],
-    plugins: ["babel", "import", "prettier", "react", "unused-imports"],
+    plugins: ["babel", "import", "prettier", "unused-imports"],
     env: {
         browser: true,
         commonjs: true,
@@ -23,9 +19,6 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: "module",
-        ecmaFeatures: {
-            jsx: true,
-        },
     },
     overrides: [
         {
@@ -123,12 +116,17 @@ module.exports = {
             2,
             {
                 "newlines-between": "always",
-                groups: ["external", "internal", ["parent", "sibling"], "index"],
+                groups: ["external", "unknown", "internal", ["parent", "sibling"], "index"],
                 alphabetize: {
                     order: "asc",
                     caseInsensitive: true,
                 },
                 pathGroups: [
+                    {
+                        pattern: "lib/**",
+                        group: "unknown",
+                        position: "before",
+                    },
                     {
                         pattern: "~~/lib/**",
                         group: "internal",
@@ -150,7 +148,7 @@ module.exports = {
         "prefer-object-spread": 1,
         "no-duplicate-imports": 2,
         "no-return-await": 2,
-        "no-invalid-this": 1,
+        "no-invalid-this": 0,
         "no-invalid-template-strings": 0,
         "no-arg": 0,
         "no-confusing-arrow": 0,
@@ -162,42 +160,9 @@ module.exports = {
         semi: "off",
         "@typescript-eslint/no-unused-vars": 0,
         "@typescript-eslint/no-empty-function": 0,
-        "react/no-children-prop": 0,
-        "react/prop-types": 0,
-        "react/display-name": 0,
-        "react/forbid-foreign-prop-types": ["warn", { allowInPropTypes: true }],
-        "react/jsx-no-comment-textnodes": "warn",
-        "react/jsx-no-duplicate-props": "warn",
-        "react/jsx-no-target-blank": "warn",
-        "react/jsx-no-undef": "error",
-        "react/jsx-pascal-case": [
-            "warn",
-            {
-                allowAllCaps: true,
-                ignore: [],
-            },
-        ],
-        "react/jsx-uses-react": "warn",
-        "react/jsx-uses-vars": "warn",
-        "react/no-danger-with-children": "warn",
-        // Disabled because of undesirable warnings
-        // See https://github.com/facebook/create-react-app/issues/5204 for
-        // blockers until its re-enabled
-        // 'react/no-deprecated': 'warn',
-        "react/no-direct-mutation-state": "warn",
-        "react/no-is-mounted": "warn",
-        "react/no-typos": "error",
-        "react/react-in-jsx-scope": "error",
-        "react/require-render-return": "error",
-        "react/style-prop-object": "warn",
-        "react-hooks/rules-of-hooks": 0,
         "@typescript-eslint/no-var-requires": 0,
         "@typescript-eslint/ban-ts-ignore": 0,
         "@typescript-eslint/camelcase": 0,
         "@typescript-eslint/no-non-null-assertion": 0,
-    },
-    settings: {
-        react: { version: "detect" },
-        "import/internal-regex": "^((.*)/)?lib",
     },
 };
